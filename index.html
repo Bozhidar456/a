@@ -1,0 +1,4968 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Царство Протиста</title>
+
+<style>
+
+/* =====================================================
+   ОСНОВНИ НАСТРОЙКИ
+===================================================== */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html,body{
+    width:100%;
+    height:100%;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    color:white;
+    background:#031f2b;
+    overflow:hidden;
+}
+
+
+/* =====================================================
+   ПРЕЗЕНТАЦИЯ
+===================================================== */
+
+.presentation{
+    position:relative;
+    width:100vw;
+    height:100vh;
+    overflow:hidden;
+}
+
+
+/* =====================================================
+   ФОН
+===================================================== */
+
+.background{
+    position:absolute;
+    inset:0;
+    z-index:-20;
+
+    background:
+        radial-gradient(
+            circle at 12% 18%,
+            rgba(65,230,255,.22),
+            transparent 26%
+        ),
+        radial-gradient(
+            circle at 82% 72%,
+            rgba(57,255,170,.16),
+            transparent 28%
+        ),
+        linear-gradient(
+            135deg,
+            #031f2c,
+            #07576a,
+            #073e52
+        );
+}
+
+
+.particle{
+    position:absolute;
+    bottom:-30px;
+    border-radius:50%;
+    background:rgba(255,255,255,.6);
+    animation:particleFloat linear infinite;
+}
+
+.p1{width:7px;height:7px;left:8%;animation-duration:12s;}
+.p2{width:5px;height:5px;left:22%;animation-duration:17s;}
+.p3{width:9px;height:9px;left:40%;animation-duration:15s;}
+.p4{width:6px;height:6px;left:58%;animation-duration:19s;}
+.p5{width:8px;height:8px;left:76%;animation-duration:14s;}
+.p6{width:4px;height:4px;left:93%;animation-duration:18s;}
+
+@keyframes particleFloat{
+
+    0%{
+        transform:translateY(0);
+        opacity:0;
+    }
+
+    15%{
+        opacity:.8;
+    }
+
+    50%{
+        transform:translateY(-50vh) translateX(30px);
+    }
+
+    100%{
+        transform:translateY(-115vh) translateX(-30px);
+        opacity:0;
+    }
+}
+
+
+/* =====================================================
+   СЛАЙДОВЕ
+===================================================== */
+
+.slide{
+    position:absolute;
+    inset:0;
+
+    padding:
+        48px
+        60px
+        105px;
+
+    overflow-y:auto;
+
+    opacity:0;
+    pointer-events:none;
+
+    transform:
+        translateX(70px)
+        scale(.97);
+}
+
+.slide.active{
+    opacity:1;
+    pointer-events:auto;
+
+    transform:
+        translateX(0)
+        scale(1);
+
+    transition:
+        opacity .55s ease,
+        transform .7s cubic-bezier(.2,.8,.2,1);
+}
+
+
+/* =====================================================
+   ТЕКСТ
+===================================================== */
+
+h1{
+    font-size:clamp(42px,7vw,80px);
+    text-align:center;
+    margin-top:25px;
+
+    text-shadow:
+        0 5px 0 rgba(0,0,0,.2),
+        0 12px 30px rgba(0,0,0,.35);
+}
+
+h2{
+    font-size:clamp(31px,5vw,58px);
+    text-align:center;
+    margin-bottom:28px;
+    text-shadow:0 5px 18px rgba(0,0,0,.3);
+}
+
+h3{
+    color:#eaff76;
+    font-size:23px;
+    margin-bottom:12px;
+}
+
+h4{
+    color:#eaff76;
+}
+
+p{
+    line-height:1.6;
+}
+
+
+/* =====================================================
+   АВТОРИ
+===================================================== */
+
+.authors{
+    text-align:center;
+    color:#eaff76;
+    font-size:23px;
+    font-weight:bold;
+    margin-top:30px;
+}
+
+
+/* =====================================================
+   СТЪКЛО
+===================================================== */
+
+.glass{
+    max-width:1100px;
+    margin:25px auto;
+    padding:30px;
+
+    background:rgba(0,28,40,.72);
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    border-radius:30px;
+
+    box-shadow:
+        0 20px 55px rgba(0,0,0,.25),
+        inset 0 0 35px rgba(255,255,255,.03);
+
+    backdrop-filter:blur(9px);
+}
+
+
+/* =====================================================
+   КАРТИ
+===================================================== */
+
+.cards{
+    max-width:1200px;
+    margin:30px auto;
+
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:25px;
+}
+
+.card{
+    padding:25px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0,73,89,.94),
+            rgba(0,35,50,.92)
+        );
+
+    border:
+        1px solid
+        rgba(255,255,255,.15);
+
+    border-radius:25px;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.22);
+
+    opacity:0;
+    transform:translateY(35px);
+}
+
+.active .card{
+    animation:cardIn .65s ease forwards;
+}
+
+.active .card:nth-child(2){
+    animation-delay:.12s;
+}
+
+.active .card:nth-child(3){
+    animation-delay:.24s;
+}
+
+.active .card:nth-child(4){
+    animation-delay:.36s;
+}
+
+@keyframes cardIn{
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.card:hover{
+    transform:translateY(-8px) scale(1.015);
+    transition:.25s;
+}
+
+.card p{
+    font-size:17px;
+}
+
+
+/* =====================================================
+   СТАТИЧНИ СНИМКИ
+===================================================== */
+
+.imageBox{
+    width:100%;
+    height:240px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    overflow:hidden;
+
+    border-radius:22px;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,.11),
+            rgba(255,255,255,.03)
+        );
+
+    margin-bottom:18px;
+
+    position:relative;
+}
+
+.imageBox::after{
+    content:"";
+    position:absolute;
+    inset:0;
+
+    border-radius:22px;
+
+    border:
+        2px solid
+        rgba(234,255,118,.12);
+
+    pointer-events:none;
+}
+
+.organismImage{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    padding:10px;
+}
+
+
+/* =====================================================
+   ОРГАНИЗЪМ + ТЕКСТ
+===================================================== */
+
+.organismSection{
+    max-width:1150px;
+    margin:auto;
+
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+
+    align-items:center;
+}
+
+.organismText{
+    background:rgba(0,35,48,.84);
+    padding:30px;
+    border-radius:25px;
+}
+
+.organismText ul{
+    margin-top:10px;
+    padding-left:25px;
+}
+
+.organismText li{
+    margin:11px 0;
+    font-size:18px;
+    line-height:1.5;
+
+    opacity:0;
+    transform:translateX(35px);
+}
+
+.active .organismText li{
+    animation:listIn .55s forwards;
+}
+
+.active .organismText li:nth-child(1){animation-delay:.35s;}
+.active .organismText li:nth-child(2){animation-delay:.65s;}
+.active .organismText li:nth-child(3){animation-delay:.95s;}
+.active .organismText li:nth-child(4){animation-delay:1.25s;}
+.active .organismText li:nth-child(5){animation-delay:1.55s;}
+
+@keyframes listIn{
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+
+}
+
+
+/* =====================================================
+   ИНФОРМАЦИЯ ОТ ТАБЛИЦАТА
+===================================================== */
+
+.typeInfo{
+    max-width:1200px;
+    margin:30px auto;
+
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:12px;
+}
+
+.infoBox{
+    background:rgba(0,35,47,.86);
+
+    padding:17px;
+
+    border-radius:18px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    opacity:0;
+    transform:translateY(25px);
+}
+
+.active .infoBox{
+    animation:infoIn .55s forwards;
+}
+
+.active .infoBox:nth-child(2){animation-delay:.1s;}
+.active .infoBox:nth-child(3){animation-delay:.2s;}
+.active .infoBox:nth-child(4){animation-delay:.3s;}
+.active .infoBox:nth-child(5){animation-delay:.4s;}
+
+@keyframes infoIn{
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+.infoBox h4{
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.infoBox p{
+    font-size:14px;
+    line-height:1.5;
+}
+
+
+/* =====================================================
+   ФАКТИ
+===================================================== */
+
+.fact{
+    max-width:1000px;
+
+    margin:28px auto;
+
+    padding:
+        23px
+        28px;
+
+    border-left:
+        7px solid
+        #eaff76;
+
+    border-radius:20px;
+
+    background:
+        rgba(0,61,70,.76);
+
+    font-size:18px;
+    line-height:1.6;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.2);
+}
+
+.fact strong{
+    color:#eaff76;
+}
+
+
+/* =====================================================
+   =====================================================
+   НОВИЯТ AI МИКРОСКОП
+   =====================================================
+===================================================== */
+
+.aiMicroscopeLayout{
+
+    max-width:1280px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1.25fr .75fr;
+
+    gap:28px;
+
+    align-items:center;
+
+}
+
+
+/* =====================================================
+   МИКРОСКОПСКО ПОЛЕ
+===================================================== */
+
+.aiScope{
+
+    position:relative;
+
+    width:min(63vw,720px);
+    height:min(63vw,720px);
+
+    max-width:720px;
+    max-height:720px;
+
+    min-width:480px;
+    min-height:480px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #154f59 0%,
+            #0a3540 42%,
+            #031c27 100%
+        );
+
+    border:
+        8px solid
+        rgba(220,255,255,.42);
+
+    box-shadow:
+
+        0 0 0 10px
+        rgba(234,255,118,.06),
+
+        0 0 80px
+        rgba(65,245,255,.20),
+
+        inset
+        0 0 100px
+        rgba(0,0,0,.72);
+
+}
+
+
+/* =====================================================
+   КАНВАС
+===================================================== */
+
+#microCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+    height:100%;
+
+}
+
+
+/* =====================================================
+   СКАНИРАЩА ЛИНИЯ
+===================================================== */
+
+.aiScanLine{
+
+    position:absolute;
+
+    left:7%;
+    right:7%;
+
+    top:10%;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(234,255,118,.9),
+            transparent
+        );
+
+    box-shadow:
+        0 0 15px
+        rgba(234,255,118,.75);
+
+    animation:
+        aiScan
+        4s
+        infinite
+        ease-in-out;
+
+    pointer-events:none;
+
+}
+
+
+@keyframes aiScan{
+
+    0%,100%{
+        top:9%;
+        opacity:.25;
+    }
+
+    50%{
+        top:90%;
+        opacity:.9;
+    }
+
+}
+
+
+/* =====================================================
+   AI HUD ПАНЕЛ
+===================================================== */
+
+.aiHud{
+
+    position:absolute;
+
+    top:25px;
+    left:30px;
+
+    padding:
+        10px
+        14px;
+
+    border-radius:13px;
+
+    background:
+        rgba(2,19,28,.72);
+
+    border:
+        1px solid
+        rgba(130,245,255,.25);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:12px;
+
+    color:#9dffff;
+
+    backdrop-filter:blur(7px);
+
+    box-shadow:
+        0 0 20px
+        rgba(0,0,0,.25);
+
+}
+
+.aiHud .green{
+    color:#9aff8c;
+}
+
+.aiHud .yellow{
+    color:#eaff76;
+}
+
+
+/* =====================================================
+   СВЕТЛЯЩА ТОЧКА
+===================================================== */
+
+.aiStatusDot{
+
+    display:inline-block;
+
+    width:8px;
+    height:8px;
+
+    border-radius:50%;
+
+    background:#8cff84;
+
+    box-shadow:
+        0 0 10px
+        #8cff84;
+
+    animation:
+        statusPulse
+        1.2s
+        infinite;
+
+}
+
+@keyframes statusPulse{
+
+    0%,100%{
+        opacity:.45;
+        transform:scale(.8);
+    }
+
+    50%{
+        opacity:1;
+        transform:scale(1.2);
+    }
+
+}
+
+
+/* =====================================================
+   AI СТРАНИЧЕН ПАНЕЛ
+===================================================== */
+
+.aiPanel{
+
+    background:
+        rgba(0,28,40,.88);
+
+    border-radius:28px;
+
+    padding:27px;
+
+    border:
+        1px solid
+        rgba(130,245,255,.18);
+
+    box-shadow:
+        0 18px 45px
+        rgba(0,0,0,.25);
+
+}
+
+
+.aiPanelTitle{
+
+    color:#eaff76;
+
+    font-size:20px;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+}
+
+
+.aiSubtitle{
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:11px;
+
+    color:#88eaff;
+
+    margin-bottom:18px;
+
+}
+
+
+.aiCell{
+
+    padding:
+        14px
+        15px;
+
+    border-radius:17px;
+
+    background:
+        rgba(255,255,255,.045);
+
+    border:
+        1px solid
+        rgba(255,255,255,.07);
+
+    margin-bottom:12px;
+
+}
+
+
+.aiCellHeader{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:8px;
+
+}
+
+
+.aiName{
+
+    font-weight:bold;
+
+}
+
+
+.aiTag{
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:10px;
+
+    color:#8fffd1;
+
+}
+
+
+.aiBar{
+
+    width:100%;
+
+    height:7px;
+
+    background:
+        rgba(255,255,255,.08);
+
+    border-radius:50px;
+
+    overflow:hidden;
+
+    margin-top:8px;
+
+}
+
+
+.aiBar span{
+
+    display:block;
+
+    height:100%;
+
+    width:0;
+
+    border-radius:50px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #59efff,
+            #eaff76
+        );
+
+}
+
+
+.aiCell small{
+
+    color:#9dc8cc;
+
+    display:block;
+
+    margin-top:7px;
+
+    font-size:12px;
+
+}
+
+
+/* =====================================================
+   AI АНАЛИЗ
+===================================================== */
+
+.aiAnalysis{
+
+    margin-top:16px;
+
+    padding:14px;
+
+    border-radius:17px;
+
+    background:
+        rgba(87,243,255,.055);
+
+    border:
+        1px solid
+        rgba(87,243,255,.12);
+
+    font-family:
+        Consolas,
+        monospace;
+
+    font-size:11px;
+
+    color:#9aefff;
+
+    line-height:1.7;
+
+}
+
+
+/* =====================================================
+   ЛЕГЕНДА
+===================================================== */
+
+.microLegend{
+
+    margin-top:15px;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:8px;
+
+}
+
+
+.microLegend span{
+
+    text-align:center;
+
+    padding:
+        8px;
+
+    border-radius:10px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    font-size:11px;
+
+}
+
+
+/* =====================================================
+   ТЕСТ
+===================================================== */
+
+.quiz{
+    max-width:950px;
+    margin:auto;
+}
+
+.question{
+    background:
+        rgba(0,35,47,.90);
+
+    padding:24px;
+
+    border-radius:22px;
+
+    margin-bottom:20px;
+}
+
+.question h3{
+    color:white;
+    margin-bottom:15px;
+}
+
+.answer{
+    display:block;
+
+    width:100%;
+
+    text-align:left;
+
+    margin:8px 0;
+
+    padding:
+        14px
+        18px;
+
+    border:none;
+
+    border-radius:15px;
+
+    background:#eafffa;
+
+    color:#063b44;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.answer:hover{
+    background:#eaff76;
+    transform:translateX(5px);
+}
+
+.answer:disabled{
+    opacity:1;
+}
+
+.correct{
+    background:#48d879 !important;
+    color:#07351c !important;
+}
+
+.wrong{
+    background:#f25f5f !important;
+    color:white !important;
+}
+
+#result{
+    text-align:center;
+
+    font-size:28px;
+
+    margin:30px;
+
+    color:#eaff76;
+
+    font-weight:bold;
+}
+
+
+/* =====================================================
+   ФИНАЛ
+===================================================== */
+
+.finalIcon{
+    font-size:100px;
+    text-align:center;
+
+    animation:
+        finalFloat
+        3s
+        infinite
+        ease-in-out;
+}
+
+@keyframes finalFloat{
+
+    0%,100%{
+        transform:
+            translateY(0)
+            rotate(-5deg);
+    }
+
+    50%{
+        transform:
+            translateY(-18px)
+            rotate(5deg);
+    }
+}
+
+
+/* =====================================================
+   НАВИГАЦИЯ
+===================================================== */
+
+.navigation{
+    position:fixed;
+
+    bottom:18px;
+    left:0;
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:15px;
+
+    z-index:100;
+}
+
+button{
+    border:none;
+
+    padding:
+        13px
+        25px;
+
+    border-radius:30px;
+
+    background:#eaff76;
+
+    color:#073d34;
+
+    font-weight:bold;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    transition:.25s;
+}
+
+button:hover{
+
+    transform:
+        translateY(-3px)
+        scale(1.04);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.3);
+
+}
+
+.slideNumber{
+
+    position:fixed;
+
+    right:25px;
+    top:18px;
+
+    padding:
+        9px
+        17px;
+
+    background:
+        rgba(0,0,0,.35);
+
+    border-radius:20px;
+
+    z-index:100;
+}
+
+
+/* =====================================================
+   МОБИЛНО
+===================================================== */
+
+@media(max-width:1050px){
+
+    .slide{
+        padding:
+            35px
+            18px
+            100px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+    .organismSection{
+        grid-template-columns:1fr;
+    }
+
+    .typeInfo{
+        grid-template-columns:1fr;
+    }
+
+    .aiMicroscopeLayout{
+        grid-template-columns:1fr;
+    }
+
+    .aiScope{
+        min-width:310px;
+        min-height:310px;
+
+        width:88vw;
+        height:88vw;
+    }
+
+    .slideNumber{
+        right:10px;
+        top:10px;
+    }
+
+    .navigation button{
+        padding:
+            10px
+            15px;
+
+        font-size:14px;
+    }
+
+}
+
+/* =====================================================
+   НОВ ДИЗАЙН НА МИКРОСКОПСКИЯ СЛАЙД
+===================================================== */
+
+.microscopeLayout{
+
+    max-width:1250px;
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        300px 1fr;
+
+    gap:25px;
+
+    align-items:center;
+
+}
+
+
+/* =========================
+   ЛЯВО ИНФО
+========================= */
+
+.infoSide{
+
+    background:
+        rgba(0,28,40,.88);
+
+    border-radius:25px;
+
+    padding:22px;
+
+    border:
+        1px solid
+        rgba(130,245,255,.15);
+
+    box-shadow:
+        0 15px 40px
+        rgba(0,0,0,.25);
+
+}
+
+
+.infoTitle{
+
+    color:#eaff76;
+
+    font-size:21px;
+
+    font-weight:bold;
+
+    margin-bottom:18px;
+
+}
+
+
+.organismInfo{
+
+    display:flex;
+
+    gap:12px;
+
+    padding:14px;
+
+    margin-bottom:12px;
+
+    border-radius:16px;
+
+    background:
+        rgba(255,255,255,.045);
+
+}
+
+
+.organismInfo b{
+
+    display:block;
+
+    font-size:16px;
+
+}
+
+
+.organismInfo small{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:#83eaff;
+
+    font-family:Consolas,monospace;
+
+    font-size:11px;
+
+}
+
+
+.organismInfo p{
+
+    font-size:13px;
+
+    color:#c6dcdf;
+
+    margin-top:6px;
+
+    line-height:1.4;
+
+}
+
+
+.colorDot{
+
+    width:14px;
+
+    height:14px;
+
+    min-width:14px;
+
+    border-radius:50%;
+
+    margin-top:5px;
+
+}
+
+
+.amoebaDot{
+
+    background:#d7efc8;
+
+    box-shadow:
+        0 0 10px
+        rgba(215,239,200,.7);
+
+}
+
+
+.euglenaDot{
+
+    background:#50cf55;
+
+    box-shadow:
+        0 0 10px
+        rgba(80,207,85,.7);
+
+}
+
+
+.parameciumDot{
+
+    background:#d8bd96;
+
+    box-shadow:
+        0 0 10px
+        rgba(216,189,150,.7);
+
+}
+
+
+/* =========================
+   МИКРОСКОПСКО ПОЛЕ
+========================= */
+
+.aiScope{
+
+    position:relative;
+
+    width:min(62vw,700px);
+
+    height:min(62vw,700px);
+
+    min-width:450px;
+
+    min-height:450px;
+
+    margin:auto;
+
+    border-radius:50%;
+
+    overflow:hidden;
+
+    background:
+
+        radial-gradient(
+            circle at center,
+            #164f59 0%,
+            #083944 45%,
+            #021d28 100%
+        );
+
+    border:
+        8px solid
+        rgba(220,255,255,.45);
+
+    box-shadow:
+
+        0 0 0 10px
+        rgba(234,255,118,.07),
+
+        0 0 70px
+        rgba(65,245,255,.20),
+
+        inset 0 0 90px
+        rgba(0,0,0,.7);
+
+}
+
+
+#microCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+}
+
+
+.scopeLabel{
+
+    position:absolute;
+
+    left:25px;
+
+    bottom:25px;
+
+    padding:8px 12px;
+
+    border-radius:10px;
+
+    background:
+        rgba(0,0,0,.45);
+
+    color:#9cf5ff;
+
+    font-family:Consolas,monospace;
+
+    font-size:10px;
+
+    letter-spacing:1px;
+
+}
+
+
+/* =========================
+   СКАНЕР
+========================= */
+
+.aiScanLine{
+
+    position:absolute;
+
+    left:8%;
+
+    right:8%;
+
+    top:10%;
+
+    height:2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(234,255,118,.85),
+            transparent
+        );
+
+    box-shadow:
+        0 0 14px
+        rgba(234,255,118,.65);
+
+    animation:
+        aiScan
+        4s
+        infinite
+        ease-in-out;
+
+    pointer-events:none;
+
+}
+
+
+@keyframes aiScan{
+
+    0%,100%{
+        top:10%;
+        opacity:.25;
+    }
+
+    50%{
+        top:90%;
+        opacity:.8;
+    }
+
+}
+
+
+/* =========================
+   ДОЛНА ИНФОРМАЦИЯ
+========================= */
+
+.movementInfo{
+
+    max-width:1250px;
+
+    margin:18px auto 0;
+
+}
+
+
+.movementTitle{
+
+    text-align:center;
+
+    color:#eaff76;
+
+    font-weight:bold;
+
+    font-size:21px;
+
+    margin-bottom:12px;
+
+}
+
+
+.movementCards{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:14px;
+
+}
+
+
+.movementCard{
+
+    display:flex;
+
+    gap:14px;
+
+    align-items:center;
+
+    padding:16px;
+
+    background:
+        rgba(0,28,40,.82);
+
+    border-radius:18px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.1);
+
+}
+
+
+.movementIcon{
+
+    width:52px;
+
+    height:52px;
+
+    min-width:52px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:
+        rgba(255,255,255,.06);
+
+    font-size:25px;
+
+}
+
+
+.movementCard h3{
+
+    font-size:17px;
+
+    margin-bottom:4px;
+
+}
+
+
+.movementCard p{
+
+    color:#eaff76;
+
+    font-size:14px;
+
+}
+
+
+.movementCard small{
+
+    display:block;
+
+    margin-top:4px;
+
+    color:#bdd5d8;
+
+    line-height:1.35;
+
+    font-size:11px;
+
+}
+
+
+/* =========================
+   ИКОНКИ
+========================= */
+
+.amoebaMoveIcon{
+
+    animation:
+        amoebaIcon
+        2s
+        infinite
+        ease-in-out;
+
+}
+
+
+@keyframes amoebaIcon{
+
+    0%,100%{
+        transform:
+            scaleX(1);
+    }
+
+    50%{
+        transform:
+            scaleX(1.15)
+            scaleY(.9);
+    }
+
+}
+
+
+.euglenaMoveIcon{
+
+    animation:
+        flagIcon
+        .6s
+        infinite
+        alternate;
+
+}
+
+
+@keyframes flagIcon{
+
+    from{
+        transform:
+            rotate(-8deg);
+    }
+
+    to{
+        transform:
+            rotate(8deg);
+    }
+
+}
+
+
+.ciliaMoveIcon{
+
+    animation:
+        ciliaIcon
+        .5s
+        infinite
+        alternate;
+
+}
+
+
+@keyframes ciliaIcon{
+
+    from{
+        transform:
+            scale(1);
+    }
+
+    to{
+        transform:
+            scale(1.12);
+    }
+
+}
+
+
+/* =========================
+   МОБИЛНО
+========================= */
+
+@media(max-width:1050px){
+
+    .microscopeLayout{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .infoSide{
+
+        order:2;
+
+    }
+
+
+    .aiScope{
+
+        order:1;
+
+        width:88vw;
+        height:88vw;
+
+        min-width:300px;
+        min-height:300px;
+
+    }
+
+
+    .movementCards{
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="presentation">
+
+
+<!-- =====================================================
+     ФОН
+===================================================== -->
+
+<div class="background">
+
+    <div class="particle p1"></div>
+    <div class="particle p2"></div>
+    <div class="particle p3"></div>
+    <div class="particle p4"></div>
+    <div class="particle p5"></div>
+    <div class="particle p6"></div>
+
+</div>
+
+
+<!-- =====================================================
+     1. НАЧАЛО
+===================================================== -->
+
+<section class="slide active">
+
+    <div class="finalIcon">
+        🔬
+    </div>
+
+    <h1>
+        ЦАРСТВО ПРОТИСТА
+    </h1>
+
+    <p style="
+        text-align:center;
+        font-size:28px;
+        margin-top:12px;
+    ">
+        Многообразие на протистите
+    </p>
+
+    <div class="glass">
+
+        <p style="
+            font-size:24px;
+            text-align:center;
+        ">
+
+            <b>
+            Царство Протиста включва
+            едноклетъчни еукариотни организми
+            и клетката изпълнява всички
+            жизнени процеси.
+            </b>
+
+        </p>
+
+    </div>
+
+    <div class="authors">
+
+        Изготвили:
+
+        <br>
+
+        Божидар и Кирил
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     2. ОСНОВНИ ОСОБЕНОСТИ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Основни особености на протистите
+    </h2>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>
+                🧬 Еукариотни организми
+            </h3>
+
+            <p>
+
+                Клетките имат ядро и
+                мембранни органели.
+
+                При едноклетъчните протисти
+                една клетка изпълнява
+                всички жизнени процеси.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                🌊 Среда на живот
+            </h3>
+
+            <p>
+
+                Много от тях живеят
+                свободно в солени
+                или сладки води.
+
+                Има почвени и
+                паразитни представители.
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                🔬 Разнообразие
+            </h3>
+
+            <p>
+
+                Различават се по форма,
+                движение, хранене,
+                особености на тялото
+                и размножаване.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        В урока са разгледани:
+
+        <b>
+        кореноножки,
+        камшичести
+        и ресничести.
+        </b>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     3. КОРЕНОНОЖКИ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Тип Кореноножки
+    </h2>
+
+
+    <div class="organismSection">
+
+        <div class="imageBox">
+
+            <img
+                src="images/amoeba.jpg"
+                alt="Обикновена амеба"
+                class="organismImage"
+            >
+
+        </div>
+
+
+        <div class="organismText">
+
+            <h3>
+                Обикновена амеба
+            </h3>
+
+            <ul>
+
+                <li>
+                    Сладководен обитател.
+                </li>
+
+                <li>
+                    Има непостоянна форма
+                    на тялото.
+                </li>
+
+                <li>
+                    Придвижва се
+                    с псевдоподи.
+                </li>
+
+                <li>
+                    Псевдоподите участват
+                    и в храненето.
+                </li>
+
+                <li>
+                    Размножава се безполово
+                    чрез делене.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="typeInfo">
+
+        <div class="infoBox">
+
+            <h4>Разпространение</h4>
+
+            <p>
+                Свободно живеещи в
+                солени или сладки води;
+                по-рядко почвени
+                обитатели; има и паразити.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Начин на придвижване</h4>
+
+            <p>
+                С псевдоподи
+                („лъжливи крачка“).
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Особености на тялото</h4>
+
+            <p>
+                Непостоянна форма.
+                Тялото може да е голо
+                или обвито с черупка.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Хранене</h4>
+
+            <p>
+                Несамостойно.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Размножаване</h4>
+
+            <p>
+                Предимно безполово
+                чрез разделяне
+                на клетката.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Запомни:
+        </strong>
+
+        Кореноножки →
+        <b>псевдоподи</b>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     4. ПРЕДСТАВИТЕЛИ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Представители на кореноножките
+    </h2>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="imageBox">
+
+                <img
+                    src="images/dysentery_amoeba.jpg"
+                    alt="Дизентерийна амеба"
+                    class="organismImage"
+                >
+
+            </div>
+
+            <h3>
+                Дизентерийна амеба
+            </h3>
+
+            <p>
+                Паразитен представител
+                на кореноножките.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="imageBox">
+
+                <img
+                    src="images/arcella.jpg"
+                    alt="Арцела"
+                    class="organismImage"
+                >
+
+            </div>
+
+            <h3>
+                Арцела
+            </h3>
+
+            <p>
+                Има дисковидна черупка
+                с отвор, през който
+                излизат псевдоподите.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="imageBox">
+
+                <img
+                    src="images/foraminifera_radiolaria.jpg"
+                    alt="Фораминифери и радиоларии"
+                    class="organismImage"
+                >
+
+            </div>
+
+            <h3>
+                Фораминифери и радиоларии
+            </h3>
+
+            <p>
+                Морски кореноножки
+                с разнообразна форма
+                и сложен строеж.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        Сред представителите са
+        обикновена амеба,
+        дизентерийна амеба,
+        Арцела, фораминифери
+        и радиоларии.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     5. КАМШИЧЕСТИ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Тип Камшичести
+    </h2>
+
+
+    <div class="organismSection">
+
+        <div class="imageBox">
+
+            <img
+                src="images/euglena.jpg"
+                alt="Зелена еуглена"
+                class="organismImage"
+            >
+
+        </div>
+
+
+        <div class="organismText">
+
+            <h3>
+                Зелена еуглена
+            </h3>
+
+            <ul>
+
+                <li>
+                    Има вретеновидна форма.
+                </li>
+
+                <li>
+                    Има едно камшиче.
+                </li>
+
+                <li>
+                    Притежава хлоропласти
+                    с хлорофил.
+                </li>
+
+                <li>
+                    Може да извършва
+                    фотосинтеза.
+                </li>
+
+                <li>
+                    Има светлочувствително
+                    очно петно.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="typeInfo">
+
+        <div class="infoBox">
+
+            <h4>Разпространение</h4>
+
+            <p>
+                Свободно живеещи в солени
+                или сладки води; по-рядко
+                почвени обитатели; има
+                и паразити.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Начин на придвижване</h4>
+
+            <p>
+                С едно или няколко
+                камшичета.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Особености на тялото</h4>
+
+            <p>
+                Формата и строежът
+                са разнообразни.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Хранене</h4>
+
+            <p>
+                Може да бъде самостойно,
+                несамостойно или смесено.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Размножаване</h4>
+
+            <p>
+                Предимно безполово.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Запомни:
+        </strong>
+
+        Камшичести →
+        <b>камшичета</b>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     6. ХЛАМИДОМОНОС
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Хламидомонас
+    </h2>
+
+
+    <div class="organismSection">
+
+        <div class="imageBox">
+
+            <img
+                src="images/chlamydomonas.jpg"
+                alt="Хламидомонас"
+                class="organismImage"
+            >
+
+        </div>
+
+
+        <div class="organismText">
+
+            <h3>
+                Хламидомонас
+            </h3>
+
+            <ul>
+
+                <li>
+                    Автотрофен едноклетъчен
+                    организъм.
+                </li>
+
+                <li>
+                    Има две камшичета,
+                    разположени в предния край.
+                </li>
+
+                <li>
+                    Има хлоропласт
+                    с хлорофил.
+                </li>
+
+                <li>
+                    Извършва фотосинтеза.
+                </li>
+
+                <li>
+                    Движи се във водата
+                    с помощта на
+                    камшичетата.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Важно:
+        </strong>
+
+        Правилното име е
+        <b>Хламидомонас</b>.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     7. ВОЛВОКС И СЦЕНЕДЕСМУС
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Волвокс и Сценедесмус
+    </h2>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <div class="imageBox">
+
+                <img
+                    src="images/volvox.jpg"
+                    alt="Волвокс"
+                    class="organismImage"
+                >
+
+            </div>
+
+            <h3>
+                Волвокс
+            </h3>
+
+            <p>
+                Представлява сферична
+                колония, образувана
+                от много клетки.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="imageBox">
+
+                <img
+                    src="images/scenedesmus.jpg"
+                    alt="Сценедесмус"
+                    class="organismImage"
+                >
+
+            </div>
+
+            <h3>
+                Сценедесмус
+            </h3>
+
+            <p>
+                Представлява колония,
+                в която няколко клетки
+                са разположени заедно.
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                🟢 Колониален организъм
+            </h3>
+
+            <p>
+
+                <b>
+                Това е група клетки,
+                които живеят свързани
+                една с друга.
+                </b>
+
+                Заедно те образуват
+                колония.
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        Пример за колониален организъм
+        е <b>Волвокс</b>.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     8. РЕСНИЧЕСТИ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Тип Ресничести
+    </h2>
+
+
+    <div class="organismSection">
+
+        <div class="imageBox">
+
+            <img
+                src="images/paramecium.jpg"
+                alt="Чехълче"
+                class="organismImage"
+            >
+
+        </div>
+
+
+        <div class="organismText">
+
+            <h3>
+                Чехълче
+            </h3>
+
+            <ul>
+
+                <li>
+                    Има постоянна форма
+                    на тялото.
+                </li>
+
+                <li>
+                    По повърхността му има
+                    множество реснички.
+                </li>
+
+                <li>
+                    Ресничките осигуряват
+                    движението.
+                </li>
+
+                <li>
+                    Храни се предимно
+                    с бактерии.
+                </li>
+
+                <li>
+                    Има голямо и малко ядро.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="typeInfo">
+
+        <div class="infoBox">
+
+            <h4>Разпространение</h4>
+
+            <p>
+                Свободно живеещи в солени
+                или сладки води; по-рядко
+                почвени обитатели;
+                има и паразити.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Начин на придвижване</h4>
+
+            <p>
+                С голям брой реснички.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Особености на тялото</h4>
+
+            <p>
+                Постоянна форма.
+                Имат обособена устна
+                и анална част и две ядра.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Хранене</h4>
+
+            <p>
+                Несамостойно.
+                Повечето се хранят
+                с бактерии.
+            </p>
+
+        </div>
+
+
+        <div class="infoBox">
+
+            <h4>Размножаване</h4>
+
+            <p>
+                Безполово чрез разделяне
+                на клетката и полово
+                чрез конюгация.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Запомни:
+        </strong>
+
+        Ресничести →
+        <b>реснички</b>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     9. ТРЪБАЧ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Тръбач
+    </h2>
+
+
+    <div class="organismSection">
+
+        <div class="imageBox">
+
+            <img
+                src="images/trubach.jpg"
+                alt="Тръбач"
+                class="organismImage"
+            >
+
+        </div>
+
+
+        <div class="organismText">
+
+            <h3>
+                Тръбач
+            </h3>
+
+            <ul>
+
+                <li>
+                    Има дълго фуниевидно
+                    тяло.
+                </li>
+
+                <li>
+                    По ръба на широката
+                    част има дълги реснички.
+                </li>
+
+                <li>
+                    Ресничките участват
+                    в движението.
+                </li>
+
+                <li>
+                    Участват и в улавянето
+                    на храната.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        Тръбачът също е представител
+        на <b>ресничестите</b>.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     МИКРОСКОПСКИ СЛАЙД
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        🔬 Протисти под микроскоп
+    </h2>
+
+    <div class="microscopeLayout">
+
+        <!-- =========================
+             ЛЯВА ИНФОРМАЦИЯ
+        ========================== -->
+
+        <div class="infoSide">
+
+            <div class="infoTitle">
+                Какво виждаме?
+            </div>
+
+            <div class="organismInfo">
+
+                <div class="colorDot amoebaDot"></div>
+
+                <div>
+                    <b>Обикновена амеба</b>
+
+                    <small>
+                        Тип: Кореноножки
+                    </small>
+
+                    <p>
+                        Едноклетъчен организъм
+                        с непостоянна форма.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="organismInfo">
+
+                <div class="colorDot euglenaDot"></div>
+
+                <div>
+                    <b>Зелена еуглена</b>
+
+                    <small>
+                        Тип: Камшичести
+                    </small>
+
+                    <p>
+                        Има едно камшиче,
+                        което участва в
+                        придвижването.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="organismInfo">
+
+                <div class="colorDot parameciumDot"></div>
+
+                <div>
+                    <b>Чехълче</b>
+
+                    <small>
+                        Тип: Ресничести
+                    </small>
+
+                    <p>
+                        Покрито е с множество
+                        реснички, които го
+                        придвижват.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             МИКРОСКОП
+        ========================== -->
+
+        <div class="aiScope">
+
+            <canvas id="microCanvas"></canvas>
+
+            <div class="aiScanLine"></div>
+
+            <div class="scopeLabel">
+                ВИЗУАЛНА СИМУЛАЦИЯ
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ДОЛНА ИНФОРМАЦИЯ
+    ========================== -->
+
+    <div class="movementInfo">
+
+        <div class="movementTitle">
+            Как се движат?
+        </div>
+
+
+        <div class="movementCards">
+
+
+            <div class="movementCard">
+
+                <div class="movementIcon amoebaMoveIcon">
+                    🦠
+                </div>
+
+                <div>
+
+                    <h3>
+                        Кореноножки
+                    </h3>
+
+                    <p>
+                        <b>Псевдоподи</b>
+                    </p>
+
+                    <small>
+                        Временни израстъци на
+                        клетката, които променят
+                        формата ѝ и помагат
+                        за движението.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="movementCard">
+
+                <div class="movementIcon euglenaMoveIcon">
+                    🟢
+                </div>
+
+                <div>
+
+                    <h3>
+                        Камшичести
+                    </h3>
+
+                    <p>
+                        <b>Камшиче</b>
+                    </p>
+
+                    <small>
+                        Дълго, тънко израстъче,
+                        което извършва вълнообразни
+                        движения и придвижва клетката.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="movementCard">
+
+                <div class="movementIcon ciliaMoveIcon">
+                    🔬
+                </div>
+
+                <div>
+
+                    <h3>
+                        Ресничести
+                    </h3>
+
+                    <p>
+                        <b>Реснички</b>
+                    </p>
+
+                    <small>
+                        Множество къси израстъци,
+                        които се движат координирано.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Лесно запомняне:
+        </strong>
+
+        Амеба →
+        <b>псевдоподи</b>
+
+        &nbsp; • &nbsp;
+
+        Еуглена →
+        <b>камшиче</b>
+
+        &nbsp; • &nbsp;
+
+        Чехълче →
+        <b>реснички</b>
+
+    </div>
+
+</section>
+
+<!-- =====================================================
+     11. БИОФОКУС
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        Биофокус
+    </h2>
+
+
+    <div class="organismSection">
+
+
+        <div class="imageBox">
+
+            <img
+                src="imeges/biopokus_radiolarians.jpg"
+                alt="Радиоларии"
+                class="organismImage"
+            >
+
+        </div>
+
+
+        <div class="organismText">
+
+            <h3>
+                Радиолариите – част от планктона
+            </h3>
+
+            <ul>
+
+                <li>
+                    Радиолариите са част
+                    от планктона.
+                </li>
+
+                <li>
+                    Срещат се в морска
+                    среда.
+                </li>
+
+                <li>
+                    Имат разнообразни
+                    и сложни форми.
+                </li>
+
+                <li>
+                    Имат сложни минерални
+                    скелети.
+                </li>
+
+                <li>
+                    Участват във водните
+                    екосистеми.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Важно:
+        </strong>
+
+        Радиолариите принадлежат
+        към <b>кореноножките</b>.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     12. ОБОБЩЕНИЕ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        📚 Обобщение
+    </h2>
+
+
+    <div class="cards">
+
+
+        <div class="card">
+
+            <h3>
+                Кореноножки
+            </h3>
+
+            <p>
+
+                <b>
+                Псевдоподи
+                </b>
+
+                <br><br>
+
+                Обикновена амеба
+
+                <br>
+
+                Дизентерийна амеба
+
+                <br>
+
+                Арцела
+
+                <br>
+
+                Фораминифери
+
+                <br>
+
+                Радиоларии
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Камшичести
+            </h3>
+
+            <p>
+
+                <b>
+                Камшичета
+                </b>
+
+                <br><br>
+
+                Зелена еуглена
+
+                <br>
+
+                Хламидомонас
+
+                <br>
+
+                Волвокс
+
+                <br>
+
+                Сценедесмус
+
+            </p>
+
+        </div>
+
+
+        <div class="card">
+
+            <h3>
+                Ресничести
+            </h3>
+
+            <p>
+
+                <b>
+                Реснички
+                </b>
+
+                <br><br>
+
+                Чехълче
+
+                <br>
+
+                Тръбач
+
+                <br>
+
+                Постоянна форма
+
+                <br>
+
+                Конюгация
+
+            </p>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="fact">
+
+        <strong>
+            Най-важното:
+        </strong>
+
+        <br><br>
+
+        Кореноножки →
+        <b>псевдоподи</b>
+
+        <br>
+
+        Камшичести →
+        <b>камшичета</b>
+
+        <br>
+
+        Ресничести →
+        <b>реснички</b>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     13. ТЕСТ
+===================================================== -->
+
+<section class="slide">
+
+    <h2>
+        🧠 Проверка на знанията
+    </h2>
+
+
+    <div class="quiz">
+
+
+        <div class="question">
+
+            <h3>
+                1. С какво се придвижват
+                кореноножките?
+            </h3>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                А) С реснички
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,true)"
+            >
+                Б) С псевдоподи
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                В) С камшичета
+            </button>
+
+        </div>
+
+
+        <div class="question">
+
+            <h3>
+                2. Към кой тип принадлежи
+                зелената еуглена?
+            </h3>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                А) Кореноножки
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,true)"
+            >
+                Б) Камшичести
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                В) Ресничести
+            </button>
+
+        </div>
+
+
+        <div class="question">
+
+            <h3>
+                3. С какво се придвижва
+                чехълчето?
+            </h3>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                А) С псевдоподи
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                Б) С камшичета
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,true)"
+            >
+                В) С реснички
+            </button>
+
+        </div>
+
+
+        <div class="question">
+
+            <h3>
+                4. Кой организъм може
+                да извършва фотосинтеза?
+            </h3>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                А) Чехълче
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,true)"
+            >
+                Б) Зелена еуглена
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                В) Обикновена амеба
+            </button>
+
+        </div>
+
+
+        <div class="question">
+
+            <h3>
+                5. Кое твърдение е вярно?
+            </h3>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                А) Всички протисти са
+                многоклетъчни.
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,true)"
+            >
+                Б) Протистите са еукариотни
+                организми с голямо разнообразие.
+            </button>
+
+            <button
+                class="answer"
+                onclick="check(this,false)"
+            >
+                В) Всички протисти се движат
+                по един и същ начин.
+            </button>
+
+        </div>
+
+
+        <div id="result">
+            Резултат: 0 / 5
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     14. КРАЙ
+===================================================== -->
+
+<section class="slide">
+
+    <div class="finalIcon">
+        🧬
+    </div>
+
+    <h1>
+        Благодарим за вниманието!
+    </h1>
+
+    <p style="
+        text-align:center;
+        font-size:28px;
+        margin:25px;
+    ">
+        Царство Протиста
+    </p>
+
+    <div class="authors">
+
+        Изготвили:
+
+        <br>
+
+        Божидар и Кирил
+
+    </div>
+
+    <br><br>
+
+    <button onclick="goToSlide(0)">
+        🔄 Начало
+    </button>
+
+</section>
+
+
+<!-- =====================================================
+     НОМЕР
+===================================================== -->
+
+<div
+    class="slideNumber"
+    id="slideNumber"
+>
+    1 / 14
+</div>
+
+
+<!-- =====================================================
+     НАВИГАЦИЯ
+===================================================== -->
+
+<div class="navigation">
+
+    <button onclick="previousSlide()">
+        ◀ Назад
+    </button>
+
+    <button onclick="nextSlide()">
+        Напред ▶
+    </button>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   СЛАЙДОВЕ
+========================================================= */
+
+let currentSlide = 0;
+
+const slides =
+    document.querySelectorAll(".slide");
+
+const slideNumber =
+    document.getElementById("slideNumber");
+
+
+function showSlide(number){
+
+    if(number < 0){
+        number = 0;
+    }
+
+    if(number >= slides.length){
+        number = slides.length - 1;
+    }
+
+    slides.forEach(
+        slide => {
+            slide.classList.remove("active");
+        }
+    );
+
+    slides[number].classList.add("active");
+
+    currentSlide = number;
+
+    slideNumber.innerText =
+        `${number + 1} / ${slides.length}`;
+
+    window.scrollTo(0,0);
+
+
+    /* Стартирай Canvas анимацията
+       само когато сме на AI слайда */
+
+    if(
+        slides[number]
+        .querySelector("#microCanvas")
+    ){
+
+        startMicroCanvas();
+
+    }
+
+}
+
+
+/* =========================================================
+   НАВИГАЦИЯ
+========================================================= */
+
+function nextSlide(){
+
+    if(currentSlide < slides.length - 1){
+
+        showSlide(
+            currentSlide + 1
+        );
+
+    }
+
+}
+
+
+function previousSlide(){
+
+    if(currentSlide > 0){
+
+        showSlide(
+            currentSlide - 1
+        );
+
+    }
+
+}
+
+
+function goToSlide(number){
+
+    showSlide(number);
+
+}
+
+
+/* =========================================================
+   КЛАВИАТУРА
+========================================================= */
+
+document.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "ArrowRight"){
+            nextSlide();
+        }
+
+        if(event.key === "ArrowLeft"){
+            previousSlide();
+        }
+
+    }
+);
+
+
+/* =========================================================
+   =========================================================
+   AI MICRO CANVAS
+   =========================================================
+========================================================= */
+
+let microAnimationStarted = false;
+
+let microAnimationFrame = null;
+
+
+function startMicroCanvas(){
+
+    if(microAnimationStarted){
+        return;
+    }
+
+    microAnimationStarted = true;
+
+    const canvas =
+        document.getElementById("microCanvas");
+
+    if(!canvas){
+        return;
+    }
+
+    const ctx =
+        canvas.getContext("2d");
+
+
+
+    /* =====================================================
+       РАЗМЕР
+    ===================================================== */
+
+    function resizeCanvas(){
+
+        const rect =
+            canvas.getBoundingClientRect();
+
+        const dpr =
+            window.devicePixelRatio || 1;
+
+        canvas.width =
+            rect.width * dpr;
+
+        canvas.height =
+            rect.height * dpr;
+
+        ctx.setTransform(
+            dpr,
+            0,
+            0,
+            dpr,
+            0,
+            0
+        );
+
+    }
+
+
+    resizeCanvas();
+
+    window.addEventListener(
+        "resize",
+        resizeCanvas
+    );
+
+
+    /* =====================================================
+       ЧАСТИЦИ
+    ===================================================== */
+
+    const particles = [];
+
+
+    for(
+        let i = 0;
+        i < 75;
+        i++
+    ){
+
+        particles.push({
+
+            x:
+                Math.random(),
+
+            y:
+                Math.random(),
+
+            r:
+                Math.random()*2.5 + .5,
+
+            speed:
+                Math.random()*.0008 + .0002,
+
+            phase:
+                Math.random()*Math.PI*2
+
+        });
+
+    }
+
+
+    /* =====================================================
+       ОРГАНИЗМИ
+    ===================================================== */
+
+    const cells = [
+
+        {
+
+            name:
+                "Обикновена амеба",
+
+            type:
+                "Кореноножки",
+
+            color:
+                "#d7efc8",
+
+            accent:
+                "#94cb83",
+
+            x:
+                0.28,
+
+            y:
+                0.27,
+
+            vx:
+                0.00035,
+
+            vy:
+                0.00010,
+
+            phase:
+                0,
+
+            size:
+                46
+
+        },
+
+
+        {
+
+            name:
+                "Зелена еуглена",
+
+            type:
+                "Камшичести",
+
+            color:
+                "#55ce57",
+
+            accent:
+                "#c8ff9e",
+
+            x:
+                0.66,
+
+            y:
+                0.49,
+
+            vx:
+                -0.00030,
+
+            vy:
+                0.00018,
+
+            phase:
+                2,
+
+            size:
+                40
+
+        },
+
+
+        {
+
+            name:
+                "Чехълче",
+
+            type:
+                "Ресничести",
+
+            color:
+                "#d8bd96",
+
+            accent:
+                "#f6dfbc",
+
+            x:
+                0.38,
+
+            y:
+                0.72,
+
+            vx:
+                0.00028,
+
+            vy:
+                -0.00010,
+
+            phase:
+                4,
+
+            size:
+                50
+
+        }
+
+    ];
+
+
+    /* =====================================================
+       ГРАФИКИ
+    ===================================================== */
+
+    function drawGlow(
+        x,
+        y,
+        radius,
+        color
+    ){
+
+        const gradient =
+            ctx.createRadialGradient(
+                x,
+                y,
+                0,
+                x,
+                y,
+                radius
+            );
+
+        gradient.addColorStop(
+            0,
+            color
+        );
+
+        gradient.addColorStop(
+            1,
+            "rgba(0,0,0,0)"
+        );
+
+        ctx.fillStyle =
+            gradient;
+
+        ctx.beginPath();
+
+        ctx.arc(
+            x,
+            y,
+            radius,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+    }
+
+
+    function drawAmoeba(
+        cell,
+        x,
+        y,
+        t
+    ){
+
+        const s =
+            cell.size *
+            (
+                1 +
+                Math.sin(
+                    t*.002 +
+                    cell.phase
+                )*.08
+            );
+
+
+        drawGlow(
+            x,
+            y,
+            s*2.6,
+            "rgba(200,255,180,.08)"
+        );
+
+
+        ctx.save();
+
+        ctx.translate(
+            x,
+            y
+        );
+
+
+        ctx.rotate(
+            Math.sin(
+                t*.001 +
+                cell.phase
+            )*.08
+        );
+
+
+        ctx.beginPath();
+
+
+        for(
+            let i=0;
+            i<=70;
+            i++
+        ){
+
+            const a =
+                (i/70) *
+                Math.PI*2;
+
+
+            const wave =
+                1 +
+                Math.sin(
+                    a*3 +
+                    t*.002
+                )*.08 +
+                Math.sin(
+                    a*5 -
+                    t*.001
+                )*.04;
+
+
+            const rx =
+                s *
+                1.15 *
+                wave;
+
+            const ry =
+                s *
+                .82 *
+                wave;
+
+
+            const px =
+                Math.cos(a)*rx;
+
+            const py =
+                Math.sin(a)*ry;
+
+
+            if(i===0){
+
+                ctx.moveTo(
+                    px,
+                    py
+                );
+
+            }else{
+
+                ctx.lineTo(
+                    px,
+                    py
+                );
+
+            }
+
+        }
+
+
+        ctx.closePath();
+
+
+        const gradient =
+            ctx.createRadialGradient(
+                -s*.3,
+                -s*.3,
+                3,
+                0,
+                0,
+                s*1.3
+            );
+
+        gradient.addColorStop(
+            0,
+            "#f0ffd9"
+        );
+
+        gradient.addColorStop(
+            .55,
+            cell.color
+        );
+
+        gradient.addColorStop(
+            1,
+            "#78ad72"
+        );
+
+
+        ctx.fillStyle =
+            gradient;
+
+        ctx.fill();
+
+
+        ctx.lineWidth = 3;
+
+        ctx.strokeStyle =
+            cell.accent;
+
+        ctx.stroke();
+
+
+        /* ядро */
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "#547b57";
+
+        ctx.arc(
+            s*.05,
+            s*.03,
+            s*.27,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "#2e4d36";
+
+        ctx.arc(
+            s*.05,
+            s*.03,
+            s*.10,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        /* псевдоподи */
+
+        ctx.strokeStyle =
+            "#b9dfa7";
+
+        ctx.lineWidth =
+            s*.27;
+
+        ctx.lineCap =
+            "round";
+
+
+        const wave =
+            Math.sin(
+                t*.003
+            ) *
+            .2;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            -s*.55,
+            -s*.15
+        );
+
+        ctx.quadraticCurveTo(
+            -s*1.2,
+            -s*.55-wave,
+            -s*1.5,
+            -s*.35
+        );
+
+        ctx.stroke();
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            s*.65,
+            s*.18
+        );
+
+        ctx.quadraticCurveTo(
+            s*1.2,
+            s*.05+wave,
+            s*1.5,
+            -s*.18
+        );
+
+        ctx.stroke();
+
+
+        ctx.restore();
+
+    }
+
+
+    function drawEuglena(
+        cell,
+        x,
+        y,
+        t
+    ){
+
+        const s =
+            cell.size;
+
+
+        drawGlow(
+            x,
+            y,
+            s*2.5,
+            "rgba(90,255,120,.08)"
+        );
+
+
+        ctx.save();
+
+        ctx.translate(
+            x,
+            y
+        );
+
+
+        ctx.rotate(
+            Math.sin(
+                t*.001 +
+                cell.phase
+            )*.10
+        );
+
+
+        /* тяло */
+
+        ctx.beginPath();
+
+        ctx.ellipse(
+            0,
+            0,
+            s*.62,
+            s*1.45,
+            0,
+            0,
+            Math.PI*2
+        );
+
+
+        const gradient =
+            ctx.createLinearGradient(
+                -s,
+                0,
+                s,
+                0
+            );
+
+        gradient.addColorStop(
+            0,
+            "#217b37"
+        );
+
+        gradient.addColorStop(
+            .5,
+            cell.color
+        );
+
+        gradient.addColorStop(
+            1,
+            "#2a963a"
+        );
+
+
+        ctx.fillStyle =
+            gradient;
+
+        ctx.fill();
+
+
+        ctx.strokeStyle =
+            cell.accent;
+
+        ctx.lineWidth =
+            3;
+
+        ctx.stroke();
+
+
+        /* хлоропласти */
+
+        ctx.strokeStyle =
+            "#a8ef82";
+
+        ctx.lineWidth =
+            7;
+
+        ctx.globalAlpha =
+            .7;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            -s*.25,
+            -s*.9
+        );
+
+        ctx.quadraticCurveTo(
+            -s*.55,
+            0,
+            -s*.25,
+            s*.9
+        );
+
+        ctx.stroke();
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            s*.2,
+            -s*.85
+        );
+
+        ctx.quadraticCurveTo(
+            s*.55,
+            0,
+            s*.2,
+            s*.85
+        );
+
+        ctx.stroke();
+
+
+        ctx.globalAlpha =
+            1;
+
+
+        /* ядро */
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "#466f45";
+
+        ctx.arc(
+            0,
+            0,
+            s*.26,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        /* очно петно */
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "#ff8d48";
+
+        ctx.arc(
+            -s*.22,
+            -s*.75,
+            s*.11,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        /* камшиче */
+
+        ctx.strokeStyle =
+            "#dfffd1";
+
+        ctx.lineWidth =
+            3;
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            0,
+            -s*1.42
+        );
+
+
+        const wave =
+            Math.sin(
+                t*.006
+            );
+
+
+        ctx.bezierCurveTo(
+            s*.25,
+            -s*1.9,
+            -s*.3,
+            -s*2.1 + wave*8,
+            s*.45,
+            -s*2.3
+        );
+
+        ctx.stroke();
+
+
+        ctx.restore();
+
+    }
+
+
+    function drawParamecium(
+        cell,
+        x,
+        y,
+        t
+    ){
+
+        const s =
+            cell.size;
+
+
+        drawGlow(
+            x,
+            y,
+            s*2.5,
+            "rgba(255,220,180,.08)"
+        );
+
+
+        ctx.save();
+
+        ctx.translate(
+            x,
+            y
+        );
+
+
+        ctx.rotate(
+            Math.sin(
+                t*.001 +
+                cell.phase
+            )*.06
+        );
+
+
+        /* тяло */
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            -s*1.3,
+            -s*.1
+        );
+
+        ctx.bezierCurveTo(
+            -s*1.05,
+            -s*.9,
+            -s*.2,
+            -s*1.1,
+            s*.65,
+            -s*.72
+        );
+
+        ctx.bezierCurveTo(
+            s*1.4,
+            -.4*s,
+            s*1.5,
+            s*.45,
+            s*.75,
+            s*.75
+        );
+
+        ctx.bezierCurveTo(
+            0,
+            s*1.08,
+            -s*1.1,
+            s*.85,
+            -s*1.3,
+            -s*.1
+        );
+
+
+        const gradient =
+            ctx.createLinearGradient(
+                -s,
+                -s,
+                s,
+                s
+            );
+
+        gradient.addColorStop(
+            0,
+            "#f1d9b2"
+        );
+
+        gradient.addColorStop(
+            .55,
+            cell.color
+        );
+
+        gradient.addColorStop(
+            1,
+            "#9c8061"
+        );
+
+
+        ctx.fillStyle =
+            gradient;
+
+        ctx.fill();
+
+
+        ctx.strokeStyle =
+            cell.accent;
+
+        ctx.lineWidth =
+            3;
+
+        ctx.stroke();
+
+
+        /* голямо ядро */
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "#7d6652";
+
+        ctx.ellipse(
+            0,
+            0,
+            s*.5,
+            s*.22,
+            -.2,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        /* малко ядро */
+
+        ctx.beginPath();
+
+        ctx.fillStyle =
+            "#544638";
+
+        ctx.arc(
+            -s*.15,
+            -s*.35,
+            s*.12,
+            0,
+            Math.PI*2
+        );
+
+        ctx.fill();
+
+
+        /* реснички */
+
+        ctx.strokeStyle =
+            "#e9f9c8";
+
+        ctx.lineWidth =
+            2;
+
+        ctx.lineCap =
+            "round";
+
+
+        const ciliaCount =
+            22;
+
+
+        for(
+            let i=0;
+            i<ciliaCount;
+            i++
+        ){
+
+            const a =
+                (i/ciliaCount) *
+                Math.PI*2;
+
+
+            const wobble =
+                Math.sin(
+                    t*.012 + i
+                )*3;
+
+
+            const px =
+                Math.cos(a) *
+                s *
+                1.25;
+
+            const py =
+                Math.sin(a) *
+                s *
+                .85;
+
+
+            const nx =
+                Math.cos(a) *
+                s *
+                1.42;
+
+            const ny =
+                Math.sin(a) *
+                s *
+                1.0;
+
+
+            ctx.beginPath();
+
+            ctx.moveTo(
+                px,
+                py
+            );
+
+            ctx.lineTo(
+                nx + wobble,
+                ny
+            );
+
+            ctx.stroke();
+
+        }
+
+
+        ctx.restore();
+
+    }
+
+
+    /* =====================================================
+       AI ЛИНИИ
+    ===================================================== */
+
+    function drawTrackingLine(
+        x1,
+        y1,
+        x2,
+        y2,
+        color
+    ){
+
+        ctx.save();
+
+        ctx.strokeStyle =
+            color;
+
+        ctx.globalAlpha =
+            .18;
+
+        ctx.lineWidth =
+            1;
+
+        ctx.setLineDash([
+            6,
+            7
+        ]);
+
+
+        ctx.beginPath();
+
+        ctx.moveTo(
+            x1,
+            y1
+        );
+
+        ctx.lineTo(
+            x2,
+            y2
+        );
+
+        ctx.stroke();
+
+        ctx.restore();
+
+    }
+
+
+    /* =====================================================
+       AI МАРКЕР
+    ===================================================== */
+
+    function drawAIBox(
+        x,
+        y,
+        label,
+        color
+    ){
+
+        ctx.save();
+
+        ctx.strokeStyle =
+            color;
+
+        ctx.globalAlpha =
+            .75;
+
+        ctx.lineWidth =
+            1.5;
+
+        const w = 88;
+        const h = 25;
+
+        ctx.strokeRect(
+            x-w/2,
+            y-h/2,
+            w,
+            h
+        );
+
+
+        ctx.font =
+            "10px Consolas";
+
+
+        ctx.fillStyle =
+            color;
+
+        ctx.fillText(
+            label,
+            x-w/2+6,
+            y+4
+        );
+
+
+        ctx.restore();
+
+    }
+
+
+    /* =====================================================
+       АНИМАЦИЯ
+    ===================================================== */
+
+    let lastTime = 0;
+
+
+    function animate(time){
+
+        const rect =
+            canvas.getBoundingClientRect();
+
+
+        const width =
+            rect.width;
+
+        const height =
+            rect.height;
+
+
+        ctx.clearRect(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+        /* фон */
+
+        const gradient =
+            ctx.createRadialGradient(
+                width*.5,
+                height*.45,
+                20,
+                width*.5,
+                height*.5,
+                width*.6
+            );
+
+        gradient.addColorStop(
+            0,
+            "#164f59"
+        );
+
+        gradient.addColorStop(
+            .55,
+            "#073a45"
+        );
+
+        gradient.addColorStop(
+            1,
+            "#021d27"
+        );
+
+
+        ctx.fillStyle =
+            gradient;
+
+        ctx.fillRect(
+            0,
+            0,
+            width,
+            height
+        );
+
+
+        /* частици */
+
+        particles.forEach(
+            p => {
+
+                p.y -=
+                    p.speed;
+
+                p.x +=
+                    Math.sin(
+                        time*.0005+p.phase
+                    )*.00015;
+
+
+                if(p.y < 0){
+
+                    p.y = 1;
+
+                }
+
+
+                ctx.fillStyle =
+                    "rgba(220,255,255,.40)";
+
+
+                ctx.beginPath();
+
+                ctx.arc(
+                    p.x*width,
+                    p.y*height,
+                    p.r,
+                    0,
+                    Math.PI*2
+                );
+
+                ctx.fill();
+
+            }
+        );
+
+
+        /* =========================
+           ДВИЖЕНИЕ
+        ========================= */
+
+
+        cells.forEach(
+            cell => {
+
+                cell.x +=
+                    cell.vx;
+
+                cell.y +=
+                    cell.vy;
+
+
+                /* граници */
+
+                if(
+                    cell.x < .15 ||
+                    cell.x > .82
+                ){
+
+                    cell.vx *= -1;
+
+                }
+
+
+                if(
+                    cell.y < .15 ||
+                    cell.y > .85
+                ){
+
+                    cell.vy *= -1;
+
+                }
+
+            }
+        );
+
+
+        const positions =
+            cells.map(
+                cell => ({
+                    x:cell.x*width,
+                    y:cell.y*height
+                })
+            );
+
+
+        /* tracking линии */
+
+        drawTrackingLine(
+            positions[0].x,
+            positions[0].y,
+            width*.5,
+            height*.5,
+            "#d7efc8"
+        );
+
+
+        drawTrackingLine(
+            positions[1].x,
+            positions[1].y,
+            width*.55,
+            height*.35,
+            "#55ce57"
+        );
+
+
+        drawTrackingLine(
+            positions[2].x,
+            positions[2].y,
+            width*.52,
+            height*.7,
+            "#d8bd96"
+        );
+
+
+        /* клетки */
+
+        drawAmoeba(
+            cells[0],
+            positions[0].x,
+            positions[0].y,
+            time
+        );
+
+
+        drawEuglena(
+            cells[1],
+            positions[1].x,
+            positions[1].y,
+            time
+        );
+
+
+        drawParamecium(
+            cells[2],
+            positions[2].x,
+            positions[2].y,
+            time
+        );
+
+
+        /* AI markers */
+
+        drawAIBox(
+            positions[0].x,
+            positions[0].y - 65,
+            "AI • ROOT",
+            "#d7efc8"
+        );
+
+
+        drawAIBox(
+            positions[1].x,
+            positions[1].y - 65,
+            "AI • FLAG",
+            "#55ce57"
+        );
+
+
+        drawAIBox(
+            positions[2].x,
+            positions[2].y - 75,
+            "AI • CILIA",
+            "#d8bd96"
+        );
+
+
+        microAnimationFrame =
+            requestAnimationFrame(
+                animate
+            );
+
+    }
+
+
+    animate(0);
+
+}
+
+
+/* =========================================================
+   ТЕСТ
+========================================================= */
+
+let score = 0;
+
+let answered = 0;
+
+const totalQuestions = 5;
+
+
+function check(
+    button,
+    correct
+){
+
+    const question =
+        button.parentElement;
+
+
+    if(
+        question.dataset.done ===
+        "true"
+    ){
+
+        return;
+
+    }
+
+
+    question.dataset.done =
+        "true";
+
+
+    const buttons =
+        question.querySelectorAll(
+            ".answer"
+        );
+
+
+    buttons.forEach(
+        btn => {
+            btn.disabled = true;
+        }
+    );
+
+
+    if(correct){
+
+        button.classList.add(
+            "correct"
+        );
+
+        score++;
+
+    }
+
+    else{
+
+        button.classList.add(
+            "wrong"
+        );
+
+
+        buttons.forEach(
+            btn => {
+
+                if(
+                    btn
+                    .getAttribute(
+                        "onclick"
+                    )
+                    .includes(
+                        "true"
+                    )
+                ){
+
+                    btn.classList.add(
+                        "correct"
+                    );
+
+                }
+
+            }
+        );
+
+    }
+
+
+    answered++;
+
+    updateResult();
+
+}
+
+
+function updateResult(){
+
+    const result =
+        document.getElementById(
+            "result"
+        );
+
+
+    if(
+        answered <
+        totalQuestions
+    ){
+
+        result.innerText =
+            `Резултат: ${score} / 5`;
+
+        return;
+
+    }
+
+
+    let message;
+
+
+    if(score === 5){
+
+        message =
+            "🏆 Перфектно! 5 от 5!";
+
+    }
+
+    else if(score === 4){
+
+        message =
+            "🔥 Отлично! 4 от 5!";
+
+    }
+
+    else if(score === 3){
+
+        message =
+            "👍 Добре! 3 от 5!";
+
+    }
+
+    else if(score >= 1){
+
+        message =
+            "📚 Още малко преговор.";
+
+    }
+
+    else{
+
+        message =
+            "🔬 Нека преговорим урока.";
+
+    }
+
+
+    result.innerText =
+        `Резултат: ${score} / 5 — ${message}`;
+
+}
+
+</script>
+
+</body>
+</html>
